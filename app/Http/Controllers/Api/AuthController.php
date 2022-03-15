@@ -15,6 +15,8 @@ class AuthController extends Controller
     public function login(){
         if(Auth::attempt(['hp' => request('hp'), 'password' => request('password')])){
             $user = Auth::user();
+            $success['id'] = $user->id;
+            $success['hp'] = $user->hp;
             $success['token'] =  $user->createToken('nApp')->accessToken;
             return response()->json(['success' => $success], $this->successStatus);
         }
@@ -23,14 +25,19 @@ class AuthController extends Controller
         }
     }
 
-    public function register(RegisterRequest $request)
-    {
-        $input = $request->all();
-        $input['password'] = bcrypt($input['password']);
-        $user = User::create($input);
-        $success['token'] =  $user->createToken('nApp')->accessToken;
-        $success['name'] =  $user->name;
-        return response()->json(['success'=>$success], $this->successStatus);
+
+    public function logout(Request $request){
+        if(Auth::check()){
+            $user = Auth::user()->token();
+            $user->revoke();
+            return response()->json([
+                'message' => 'Logout successfully',
+            ],200);
+        } else{
+            return response()->json([
+            'message' => 'Unable to Logout',
+            ],500);
+        }
     }
 
 }

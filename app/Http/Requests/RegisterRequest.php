@@ -28,9 +28,9 @@ class RegisterRequest extends FormRequest
         return [
             'nama' => 'required',
             'posisi' => 'required',
-            'hp' => 'required|numeric',
-            'password' => 'required'
-
+            'hp' => 'required|numeric|unique:users,hp',
+            'password' => 'required',
+            'jenis_kelamin' => 'required'
         ];
     }
 

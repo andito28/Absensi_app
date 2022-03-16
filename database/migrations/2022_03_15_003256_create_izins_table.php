@@ -17,8 +17,8 @@ class CreateIzinsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->string('jenis_izin');
-            $table->timestamp('waktu_mulai');
-            $table->timestamp('waktu_selesai');
+            $table->date('waktu_mulai');
+            $table->date('waktu_selesai');
             $table->text('ket');
         });
     }

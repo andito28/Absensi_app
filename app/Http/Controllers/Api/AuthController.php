@@ -12,6 +12,18 @@ class AuthController extends Controller
 {
     public $successStatus = 200;
 
+
+    public function register(RegisterRequest $request)
+    {
+        $input = $request->all();
+        $input['password'] = bcrypt($input['password']);
+        $user = User::create($input);
+        $success['token'] =  $user->createToken('nApp')->accessToken;
+        $success['nama'] =  $user->nama;
+
+        return response()->json(['success'=>$success], $this->successStatus);
+    }
+
     public function login(){
         if(Auth::attempt(['hp' => request('hp'), 'password' => request('password')])){
             $user = Auth::user();

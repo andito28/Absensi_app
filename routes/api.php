@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\AbsensiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +17,11 @@ use App\Http\Controllers\Api\AuthController;
 */
 
 //Authentication
+Route::post('register',[AuthController::class,'register']);
 Route::post('login',[AuthController::class,'login']);
 Route::get('logout',[AuthController::class,'logout'])->middleware('auth:api');
 
 //Absen
+Route::group(['middleware' => 'auth:api'], function(){
+	Route::post('absen-masuk',[AbsensiController::class,'absenMasuk']);
+});

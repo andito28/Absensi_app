@@ -11,7 +11,7 @@ class Absen extends Model
 
     public $timestamps = false;
 
-    protected $fillable = ['user_id','waktu','status','koordinat','jenis_absen'];
+    protected $fillable = ['user_id','tgl','jam_masuk','jam_pulang','status','koordinat','jenis_absen'];
 
     public function User(){
 

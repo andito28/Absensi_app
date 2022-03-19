@@ -16,7 +16,7 @@ class CreateSakitsTable extends Migration
         Schema::create('sakits', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
-            $table->dateTime('waktu');
+            $table->date('waktu');
             $table->text('ket');
         });
     }

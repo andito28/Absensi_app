@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\AbsensiController;
+use App\Http\Controllers\Api\IzinController;
+use App\Http\Controllers\Api\SakitController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +23,13 @@ Route::post('register',[AuthController::class,'register']);
 Route::post('login',[AuthController::class,'login']);
 Route::get('logout',[AuthController::class,'logout'])->middleware('auth:api');
 
-//Absen
+//cek absen
+Route::post('cek-absen',[AbsensiController::class,'cekAbsen']);
+
+//Absensi
 Route::group(['middleware' => 'auth:api'], function(){
 	Route::post('absen-masuk',[AbsensiController::class,'absenMasuk']);
+    Route::put('absen-pulang',[AbsensiController::class,'absenPulang']);
+    Route::post('izin',[IzinController::class,'izin']);
+    Route::post('sakit',[SakitController::class,'sakit']);
 });

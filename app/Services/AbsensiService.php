@@ -39,7 +39,7 @@ class AbsensiService{
 
         }else{
             throw new HttpResponseException(response()->json([
-                'message'   => 'User Telah Melakukan Absen Masuk hari ini',
+                'message'   => 'User Telah Melakukan Absen hari ini',
             ],500));
         }
 

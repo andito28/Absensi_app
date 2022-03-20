@@ -8,6 +8,7 @@ use Carbon\CarbonPeriod;
 class IzinService{
 
     protected $izinRepository;
+    protected $message;
 
     public function __construct(IzinRepository $izinRepository){
 
@@ -19,19 +20,38 @@ class IzinService{
 
         $dataIzin = $this->izinRepository->dataIzin();
 
+        $this->message = 'Tidak Dapat Melakukan Izin';
+
         if($request['waktu_mulai'] >= Carbon::now()->toDateString()){
+
+            $data_absen = $this->izinRepository->dataAbsen($request['waktu_mulai']);
+
+            if(!empty($data_absen)){
+                throw new HttpResponseException(response()->json([
+                    'message' => $this->message
+                    ],500));
+            }
 
             foreach($dataIzin as $data){
 
                 if($data->waktu_mulai == $request['waktu_mulai']
                 || $data->waktu_selesai == $request['waktu_selesai']){
-                    dd('ok');
+                    throw new HttpResponseException(response()->json([
+                        'message' => $this->message
+                        ],500));
                 }
 
                 if($request['waktu_mulai'] <= $data->waktu_selesai && $data->waktu_mulai <= $request['waktu_mulai']){
-                    dd('ok');
+                    throw new HttpResponseException(response()->json([
+                        'message' => $this->message
+                        ],500));
                 }
 
+                if($data->waktu_mulai >= $request['waktu_mulai'] && $request['waktu_selesai'] >= $data->waktu_mulai){
+                    throw new HttpResponseException(response()->json([
+                        'message' => $this->message
+                        ],500));
+                }
 
             }
             if($request['waktu_mulai'] <= $request['waktu_selesai']){
@@ -39,10 +59,11 @@ class IzinService{
                 $period = CarbonPeriod::create($request['waktu_mulai'], $request['waktu_selesai']);
 
                 foreach ($period as $date) {
-
                     $tgl = $date->format('Y-m-d');
-
-                    // $this->izinRepository->absen($tgl);
+                    $data_absen = $this->izinRepository->dataAbsen($tgl);
+                    if(empty($data_absen)){
+                        $this->izinRepository->absen($tgl);
+                    }
                 }
 
                 return $this->izinRepository->izin($request);

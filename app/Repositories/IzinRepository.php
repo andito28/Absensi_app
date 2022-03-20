@@ -17,6 +17,13 @@ class IzinRepository{
         return $izin->fresh();
     }
 
+    public function dataAbsen($date){
+        $data_absen = Absen::where('user_id',Auth::user()->id)
+        ->where('tgl',$date)
+        ->first();
+        return $data_absen;
+    }
+
     public function absen($tgl){
         $absen = new Absen();
         $absen->user_id = Auth::user()->id;

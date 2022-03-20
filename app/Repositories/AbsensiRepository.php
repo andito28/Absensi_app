@@ -62,7 +62,7 @@ class AbsensiRepository{
     public function insertAbsenAlfa($id,$date){
         $absen = new Absen();
         $absen->user_id = $id;
-        $absen->status = "ALFA";
+        $absen->status = "TIDAK HADIR";
         $absen->jam_masuk = null;
         $absen->jam_pulang = null;
         $absen->koordinat = null;

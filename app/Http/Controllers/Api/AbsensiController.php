@@ -49,10 +49,9 @@ class AbsensiController extends Controller
 
 
     public function cekAbsen(){
-        $data = $this->absensiService->cekAbsen();
+        $this->absensiService->cekAbsen();
         return response()->json([
-            'message' => 'Success Create Absen',
-            'data' => $data
+            'message' => 'Success Create Absen'
         ]);
     }
 

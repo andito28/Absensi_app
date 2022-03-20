@@ -28,9 +28,9 @@ class SakitRepository{
         return $absen->fresh();
     }
 
-    public function dataAbsen($dateTime){
+    public function dataAbsen($date){
         $data_absen = Absen::where('user_id',Auth::user()->id)
-        ->where('tgl',$dateTime->toDateString())
+        ->where('tgl',$date)
         ->first();
         return $data_absen;
     }

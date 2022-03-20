@@ -17,23 +17,33 @@ class SakitService{
 
         $dateTime = Carbon::now();
 
-        $data_absen = $this->sakitRepository->dataAbsen($dateTime);
+        if($data['waktu'] >= $dateTime->toDateString()){
 
-        if(empty($data_absen)){
+            $data_absen = $this->sakitRepository->dataAbsen($data['waktu']);
 
-            $this->sakitRepository->absen($data);
-            return $this->sakitRepository->sakit($data);
+            if(empty($data_absen)){
+
+                $this->sakitRepository->absen($data);
+                return $this->sakitRepository->sakit($data);
+
+            }else{
+
+                throw new HttpResponseException(response()->json([
+
+                    'message' => 'User Tidak Dapat Melakukan Absen'
+
+                ],500));
+
+            }
 
         }else{
 
             throw new HttpResponseException(response()->json([
 
-                'message' => 'User Telah Melakukan Absen hari ini / Masa Izin User Belum Selesai'
+                'message' => 'Tanggal Tidak Valid'
 
-              ],500));
-
+            ],500));
         }
-
 
 
     }

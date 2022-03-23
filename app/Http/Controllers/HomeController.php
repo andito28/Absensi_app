@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Absen;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -23,6 +25,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('dashboard');
+        $today = Carbon::now()->toDateString();
+
+        $get_absensi = Absen::whereDate('tgl',$today)->paginate(5);
+        return view('dashboard',compact('get_absensi'));
     }
 }

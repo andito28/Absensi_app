@@ -30,7 +30,7 @@ class SakitService{
 
                 throw new HttpResponseException(response()->json([
 
-                    'message' => 'User Tidak Dapat Melakukan Absen'
+                    'message' => 'Anda Tidak Dapat Melakukan Absen'
 
                 ],500));
 

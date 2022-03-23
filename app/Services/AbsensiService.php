@@ -39,7 +39,7 @@ class AbsensiService{
 
         }else{
             throw new HttpResponseException(response()->json([
-                'message'   => 'Anda Telah Melakukan Absen hari ini',
+                'message'   => 'Anda Telah Melakukan Absen Hari Ini',
             ],500));
         }
 
@@ -69,13 +69,13 @@ class AbsensiService{
         }else if(!empty($data_absen) && ($data_absen->status=='IZIN' || $data_absen->status =='TIDAK HADIR')){
 
             throw new HttpResponseException(response()->json([
-                'message'   => 'Anda IZIN / TIDAK HADIR Hari Ini',
+                'message'   => 'Anda Telah Melakukan Absen Hari Ini',
             ],500));
 
         }else{
 
             throw new HttpResponseException(response()->json([
-                'message'   => 'Anda Belum Melakukan Absen Masuk hari ini',
+                'message'   => 'Anda Belum Melakukan Absen Datang Hari Ini',
             ],500));
 
         }

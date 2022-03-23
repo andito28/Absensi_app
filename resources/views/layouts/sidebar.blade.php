@@ -3,7 +3,7 @@
         <li class="nav-item nav-profile border-bottom">
             <a href="#" class="nav-link flex-column">
                 <div class="nav-profile-image">
-                    <img src="{{ asset('template-admin') }}/assets/images/faces/face1.jpg" alt="profile" />
+                    <img src="{{ asset('template-admin') }}/assets/face1.jpg" alt="profile" />
                     <!--change to offline or busy as needed-->
                 </div>
                 <div class="nav-profile-text d-flex ml-0 mb-3 flex-column">

@@ -186,27 +186,27 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <img src="{{ asset('template-admin') }}/assets/images/faces/face2.jpg"
-                                            class="mr-2" alt="image" /> Jacob Jensen
-                                    </td>
-                                    <td>
-                                        <div class="d-flex">
-                                            <span class="pr-2 d-flex align-items-center">85%</span>
-                                            <select id="star-1" name="rating" autocomplete="off">
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                            </select>
-                                        </div>
-                                    </td>
-                                    <td>32,435</td>
-                                </tr>
+                                @forelse ($get_absensi as $absensi)
+                                    <tr>
+                                        <td>
+                                            <img src="{{ asset('template-admin') }}/assets/pic-1.png"
+                                                class="mr-2" alt="image" /> {{ $absensi->User->nama }}
+                                        </td>
+                                        <td>
+                                            {{ $absensi->User->posisi }}
+                                        </td>
+                                        <td>{{ $absensi->status }}</td>
+                                    </tr>
+                                @empty
+                                    <div class="text-center">
+                                        <h3>Belum Ada Absen Hari Ini</h3>
+                                    </div>
+                                @endforelse
                             </tbody>
                         </table>
+                        <div class="mt-2 ml-2">
+                            {{ $get_absensi->links('pagination::bootstrap-4') }}
+                        </div>
                     </div>
                 </div>
             </div>

@@ -39,7 +39,7 @@ class AbsensiService{
 
         }else{
             throw new HttpResponseException(response()->json([
-                'message'   => 'User Telah Melakukan Absen hari ini',
+                'message'   => 'Anda Telah Melakukan Absen hari ini',
             ],500));
         }
 
@@ -66,16 +66,16 @@ class AbsensiService{
 
                 return  $this->absensiRepository->absenPulang($data,$dateTime);
 
-        }else if(!empty($data_absen) && ($data_absen->status=='IZIN' || $data_absen->status =='ALFA')){
+        }else if(!empty($data_absen) && ($data_absen->status=='IZIN' || $data_absen->status =='TIDAK HADIR')){
 
             throw new HttpResponseException(response()->json([
-                'message'   => 'User IZIN / ALFA Hari Ini',
+                'message'   => 'Anda IZIN / TIDAK HADIR Hari Ini',
             ],500));
 
         }else{
 
             throw new HttpResponseException(response()->json([
-                'message'   => 'User Belum Melakukan Absen Masuk hari ini',
+                'message'   => 'Anda Belum Melakukan Absen Masuk hari ini',
             ],500));
 
         }

@@ -6,6 +6,8 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\AbsensiController;
 use App\Http\Controllers\Api\IzinController;
 use App\Http\Controllers\Api\SakitController;
+use App\Http\Controllers\Api\LaporanHarianController;
+use App\Http\Controllers\Api\LaporanKunjunganController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,4 +34,6 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::put('absen-pulang',[AbsensiController::class,'absenPulang']);
     Route::post('izin',[IzinController::class,'izin']);
     Route::post('sakit',[SakitController::class,'sakit']);
+    Route::post('laporan-harian',[LaporanHarianController::class,'laporanHarian']);
+    Route::post('laporan-kunjungan',[LaporanKunjunganController::class,'laporanHarian']);
 });

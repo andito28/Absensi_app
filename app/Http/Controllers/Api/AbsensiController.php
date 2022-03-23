@@ -22,7 +22,7 @@ class AbsensiController extends Controller
         }catch(Error $e){
             $data = [
                 'status' => 500,
-                'error' => $e->getMessage()
+                'message' => $e->getMessage()
             ];
         }
             return response()->json([
@@ -38,7 +38,7 @@ class AbsensiController extends Controller
         }catch(Error $e){
             $data = [
                 'status' => 500,
-                'error' => $e->getMessage()
+                'message' => $e->getMessage()
             ];
         }
             return response()->json([

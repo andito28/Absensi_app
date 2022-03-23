@@ -55,7 +55,9 @@ class AbsensiRepository{
     }
 
     public function dataUser(){
-        $users = User::select('id')->get();
+        $users = User::select('id')
+        ->where('role','karyawan')
+        ->get();
         return $users;
     }
 

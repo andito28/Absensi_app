@@ -13,7 +13,7 @@ class User extends Authenticatable
     public $timestamps = false;
 
     protected $fillable = [
-        'nama','jenis_kelamin','posisi','hp','password',
+        'nama','jenis_kelamin','posisi','hp','password','role',
     ];
 
     public function Absen(){

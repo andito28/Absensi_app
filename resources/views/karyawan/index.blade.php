@@ -33,7 +33,7 @@
                     <div class="header-right d-flex flex-wrap mt-2 mt-sm-0 mb-3">
                         <button type="button" class="btn btn-primary mt-2 mt-sm-0 btn-icon-text" data-toggle="modal"
                             id="button-tambah">
-                            <i class="mdi mdi-plus-circle"></i>Tambah Karyawan </button>
+                            <i class="mdi mdi-plus-circle"></i>Karyawan </button>
                     </div>
                     <div class="row">
                         <div class="col-12">

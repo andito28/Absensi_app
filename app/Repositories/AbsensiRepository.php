@@ -39,7 +39,9 @@ class AbsensiRepository{
 
 
     public function absenPulang($data,$dateTime){
-        $absen_pulang =  Absen::where('tgl',$dateTime->toDateString())->first();
+        $absen_pulang =  Absen::where('tgl',$dateTime->toDateString())
+        ->where('user_id',Auth::user()->id)
+        ->first();
         $absen_pulang->jam_pulang = $data['jam_pulang'];
         $absen_pulang->save();
         return $absen_pulang->fresh();

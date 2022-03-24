@@ -66,7 +66,7 @@ class AbsensiService{
 
                 return  $this->absensiRepository->absenPulang($data,$dateTime);
 
-        }else if(!empty($data_absen) && ($data_absen->status=='IZIN' || $data_absen->status =='TIDAK HADIR')){
+        }else if(!empty($data_absen) && ($data_absen->status=='IZIN' || $data_absen->status =='TIDAK HADIR' || $data_absen->status =='SAKIT')){
 
             throw new HttpResponseException(response()->json([
                 'message'   => 'Anda Telah Melakukan Absen Hari Ini',

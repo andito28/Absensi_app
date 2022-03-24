@@ -28,7 +28,7 @@ class IzinController extends Controller
         }
 
         return response()->json([
-            'message' => 'Success Created Izin',
+            'message' => 'Berhasil Melakukan Izin',
             'data' => $data
         ]);
     }

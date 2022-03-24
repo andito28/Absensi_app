@@ -75,4 +75,34 @@ class AbsensiRepository{
         $absen->save();
         return $absen->fresh();
     }
+
+    public function getAbsensi($dateTime){
+
+        $count_hadir = Absen::where('user_id',Auth::user()->id)
+        ->whereMonth('tgl',$dateTime->month)
+        ->where('status','HADIR')->count();
+
+        $count_izin = Absen::where('user_id',Auth::user()->id)
+        ->whereMonth('tgl',$dateTime->month)
+        ->where('status','IZIN')->count();
+
+        $count_tidak_hadir = Absen::where('user_id',Auth::user()->id)
+        ->whereMonth('tgl',$dateTime->month)
+        ->where('status','TIDAK HADIR')->count();
+
+        $count_terlambat = Absen::where('user_id',Auth::user()->id)
+        ->whereMonth('tgl',$dateTime->month)
+        ->where('status','TERLAMBAT')->count();
+
+        $count_sakit = Absen::where('user_id',Auth::user()->id)
+        ->whereMonth('tgl',$dateTime->month)
+        ->where('status','SAKIT')->count();
+
+        $data['hadir'] = $count_hadir;
+        $data['tidak hadir'] = $count_tidak_hadir;
+        $data['terlambat'] = $count_terlambat;
+        $data['izin'] = $count_izin;
+        $data['sakit'] = $count_sakit;
+        return $data;
+    }
 }

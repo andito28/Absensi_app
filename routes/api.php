@@ -35,5 +35,6 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::post('izin',[IzinController::class,'izin']);
     Route::post('sakit',[SakitController::class,'sakit']);
     Route::post('laporan-harian',[LaporanHarianController::class,'laporanHarian']);
-    Route::post('laporan-kunjungan',[LaporanKunjunganController::class,'laporanHarian']);
+    Route::post('laporan-kunjungan',[LaporanKunjunganController::class,'laporanKunjungan']);
+    Route::get('get-absensi',[AbsensiController::class,'getCountAbsensi']);
 });

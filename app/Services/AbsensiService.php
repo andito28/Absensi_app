@@ -83,6 +83,12 @@ class AbsensiService{
     }
 
 
+    public function getAbsen(){
+        $dateTime = Carbon::now();
+        return $this->absensiRepository->getAbsensi($dateTime);
+    }
+
+
     public function cekAbsen(){
         $dateTime = Carbon::now()->toDateString();
         $users = $this->absensiRepository->dataUser();

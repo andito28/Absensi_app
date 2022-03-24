@@ -186,7 +186,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($get_absensi as $absensi)
+                                @foreach ($get_absensi as $absensi)
                                     <tr>
                                         <td>
                                             <img src="{{ asset('template-admin') }}/assets/pic-1.png"
@@ -197,13 +197,14 @@
                                         </td>
                                         <td>{{ $absensi->status }}</td>
                                     </tr>
-                                @empty
-                                    <div class="text-center">
-                                        <h3>Belum Ada Absen Hari Ini</h3>
-                                    </div>
-                                @endforelse
+                                @endforeach
                             </tbody>
                         </table>
+                        @if (count($get_absensi) < 1)
+                            <div class="text-center" style="margin-top: 100px">
+                                <h3>Belum Ada Absen Hari Ini</h3>
+                            </div>
+                        @endif
                         <div class="mt-2 ml-2">
                             {{ $get_absensi->links('pagination::bootstrap-4') }}
                         </div>

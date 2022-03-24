@@ -26,7 +26,7 @@ class AbsensiController extends Controller
             ];
         }
             return response()->json([
-                'message' => 'Success Create Absen Masuk',
+                'message' => 'Berhasil Melakukan Absen Datang',
                 'data' => $data
             ]);
     }
@@ -42,16 +42,22 @@ class AbsensiController extends Controller
             ];
         }
             return response()->json([
-                'message' => 'Success Create Absen Pulang',
+                'message' => 'Berhasil Melakukan Absen Pulang',
                 'data' => $data
             ]);
     }
 
+    public function getCountAbsensi(){
+        $data = $this->absensiService->getAbsen();
+        return response()->json([
+            'data' => $data
+        ]);
+    }
 
     public function cekAbsen(){
         $this->absensiService->cekAbsen();
         return response()->json([
-            'message' => 'Success Create Absen'
+            'message' => 'Berhasil Melakukan Absen'
         ]);
     }
 

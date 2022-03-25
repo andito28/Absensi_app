@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\profileUpdateRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
@@ -50,6 +51,32 @@ class AuthController extends Controller
             'message' => 'Unable to Logout',
             ],500);
         }
+    }
+
+    public function getProfile(){
+        $user = Auth::user();
+        return response()->json(['success' => $user], $this->successStatus);
+    }
+
+    public function updateProfile(profileUpdateRequest $request){
+
+        $user = User::where('id',Auth::user()->id)->first();
+
+        if($request->password == null){
+            $pass = $user->password;
+        }else{
+            $pass = bcrypt($request->password);
+        }
+
+        $user->update([
+            'nama' => $request->nama,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'posisi' => $request->posisi,
+            'hp' => $request->hp,
+            'password' => $pass
+        ]);
+
+        return response()->json(['success' => $user], $this->successStatus);
     }
 
 }

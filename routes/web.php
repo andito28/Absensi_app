@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\AbsensiController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HomeController;
 
@@ -35,13 +36,20 @@ Route::match(["GET", "POST"], '/register', function () {
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 //route adminn
 Route::group(['middleware' => ['auth','checkrole:admin']], function () {
+
 //dashboard
 Route::get('/',[HomeController::class,'index'])->name('dashboard');
+
 //user
-Route::get('/user', [UserController::class, 'index'])->name('user');
+Route::get('/daftar-karyawan', [UserController::class, 'index'])->name('user');
 Route::get('/get-user', [UserController::class, 'dataUser'])->name('user.get');
 Route::post('/store-user', [UserController::class, 'store'])->name('user.store');
 Route::get('/delete-user/{id}', [UserController::class, 'destroy'])->name('user.delete');
 Route::get('/edit-user/{id}', [UserController::class, 'edit'])->name('user.edit');
+
+//absensi
+Route::get('/daftar-absen', [AbsensiController::class, 'index'])->name('absen');
+Route::get('/get-absen', [AbsensiController::class, 'dataAbsen'])->name('absen.get');
+
 
 });

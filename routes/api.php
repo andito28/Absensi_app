@@ -37,4 +37,6 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::post('laporan-harian',[LaporanHarianController::class,'laporanHarian']);
     Route::post('laporan-kunjungan',[LaporanKunjunganController::class,'laporanKunjungan']);
     Route::get('get-absensi',[AbsensiController::class,'getCountAbsensi']);
+    Route::get('get-profile',[AuthController::class,'getProfile']);
+    Route::put('update-profile',[AuthController::class,'updateProfile']);
 });

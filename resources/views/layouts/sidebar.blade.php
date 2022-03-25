@@ -27,6 +27,24 @@
                     <span class="menu-title">Karyawan</span>
                 </a>
             </li>
+            <li class="nav-item {{ Route::is('absen') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('absen') }}">
+                    <i class="mdi mdi-calendar-text menu-icon"></i>
+                    <span class="menu-title">Absensi</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="">
+                    <i class="mdi mdi-library-books menu-icon"></i>
+                    <span class="menu-title">Laporan Harian</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="">
+                    <i class="mdi mdi-library-books menu-icon"></i>
+                    <span class="menu-title">Laporan Kunjungan</span>
+                </a>
+            </li>
         @endif
     </ul>
 </nav>

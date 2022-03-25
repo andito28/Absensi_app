@@ -31,8 +31,9 @@
             font-size: 12px;
             background: hsl(0 0% 93%);
             border-radius: .25rem;
-            padding: .75rem 1rem;
+            padding: .50rem 1rem;
             width: 100%;
+            cursor: pointer;
         }
 
     </style>
@@ -45,7 +46,7 @@
                 <div class="card-body pt-2">
                     <div class="row">
                         <div class="col col-md-12">
-                            <div class="row input-daterange pt-4 pb-3">
+                            <div class="row input-daterange pt-3 pb-3">
                                 <div class="col-md-3 pr-0">
                                     <input type="text" name="from_date" id="from_date" class="form-date"
                                         placeholder="From Date" readonly />
@@ -56,7 +57,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <button type="button" name="filter" id="filter" class="btn btn-primary"
-                                        style="padding:11px;">Filter
+                                        style="padding:7px;">Filter
                                         Tanggal</button>
                                 </div>
                             </div>

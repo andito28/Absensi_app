@@ -64,16 +64,15 @@
                         </div>
                         <div class="col-12">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="table-absen" style="width:100%">
+                                <table class="table table-bordered" id="table-laporan" style="width:100%">
                                     <thead>
                                         <tr>
                                             <th>No</th>
                                             <th>Nama</th>
                                             <th>Posisi</th>
                                             <th>Tanggal</th>
-                                            <th>Jam datang</th>
-                                            <th>Jam Pulang</th>
-                                            <th>Status</th>
+                                            <th>Jam</th>
+                                            <th>Keterangan</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -109,7 +108,7 @@
             load_data();
 
             function load_data(from_date = '', to_date = '') {
-                $('#table-absen').DataTable({
+                $('#table-laporan').DataTable({
                     dom: 'Bfrtip',
                     buttons: [
                         'excelHtml5', 'pdfHtml5', 'csvHtml5'
@@ -124,7 +123,7 @@
                     "bAutoWidth": false,
                     "searching": false,
                     ajax: {
-                        url: '{{ route('absen.get') }}',
+                        url: '{{ route('laporan.kunjungan.get') }}',
                         data: {
                             from_date: from_date,
                             to_date: to_date
@@ -140,17 +139,14 @@
                         data: 'posisi',
                         name: 'posisi'
                     }, {
-                        data: 'tgl_a',
-                        name: 'tgl_a'
+                        data: 'tgl',
+                        name: 'tgl'
                     }, {
-                        data: 'jam_d',
-                        name: 'jam_d'
+                        data: 'jam',
+                        name: 'jam'
                     }, {
-                        data: 'jam_p',
-                        name: 'jam_p'
-                    }, {
-                        data: 'status',
-                        name: 'status'
+                        data: 'ket',
+                        name: 'ket'
                     }]
                 });
             }
@@ -159,7 +155,7 @@
                 var from_date = $('#from_date').val();
                 var to_date = $('#to_date').val();
                 if (from_date != '' && to_date != '') {
-                    $('#table-absen').DataTable().destroy();
+                    $('#table-laporan').DataTable().destroy();
                     load_data(from_date, to_date);
                 } else {
                     Swal.fire({

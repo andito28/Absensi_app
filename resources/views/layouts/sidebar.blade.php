@@ -34,13 +34,13 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="">
+                <a class="nav-link" href="{{ route('laporan.harian') }}">
                     <i class="mdi mdi-library-books menu-icon"></i>
                     <span class="menu-title">Laporan Harian</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="">
+                <a class="nav-link" href="{{ route('laporan.kunjungan') }}">
                     <i class="mdi mdi-library-books menu-icon"></i>
                     <span class="menu-title">Laporan Kunjungan</span>
                 </a>

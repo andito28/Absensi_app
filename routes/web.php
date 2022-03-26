@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AbsensiController;
+use App\Http\Controllers\Admin\LaporanHarianController;
+use App\Http\Controllers\Admin\LaporanKunjunganController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HomeController;
 
@@ -51,5 +53,10 @@ Route::get('/edit-user/{id}', [UserController::class, 'edit'])->name('user.edit'
 Route::get('/daftar-absen', [AbsensiController::class, 'index'])->name('absen');
 Route::get('/get-absen', [AbsensiController::class, 'dataAbsen'])->name('absen.get');
 
+//laporan
+Route::get('/laporan-harian', [LaporanHarianController::class, 'index'])->name('laporan.harian');
+Route::get('/data-laporan-harian', [LaporanHarianController::class, 'dataLaporanHarian'])->name('laporan.harian.get');
+Route::get('/laporan-kunjungan', [LaporanKunjunganController::class, 'index'])->name('laporan.kunjungan');
+Route::get('/data-laporan-kunjungan', [LaporanKunjunganController::class, 'dataLaporanKunjungan'])->name('laporan.kunjungan.get');
 
 });

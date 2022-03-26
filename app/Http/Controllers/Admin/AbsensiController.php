@@ -35,13 +35,17 @@ class AbsensiController extends Controller
                     $posisi = $data->User->posisi;
                     return $posisi;
                 })
+                ->addColumn('tgl_a', function ($data) {
+                    $tgl = date('d-m-Y', strtotime($data->tgl));
+                    return $tgl;
+                })
                 ->addColumn('jam_d', function ($data) {
                     return $data->jam_masuk ? $data->jam_masuk.' WITA' : '-';
                 })
                 ->addColumn('jam_p', function ($data) {
                     return $data->jam_pulang ? $data->jam_pulang.' WITA' : '-';
                 })
-                ->rawColumns(['nama','posisi','jam_d','jam_p'])
+                ->rawColumns(['nama','posisi','tgl_a','jam_d','jam_p'])
                 ->addIndexColumn()
                 ->make(true);
         } else {

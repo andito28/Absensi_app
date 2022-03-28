@@ -63,10 +63,10 @@ class AbsensiRepository{
         return $users;
     }
 
-    public function insertAbsenAlfa($id,$date){
+    public function insertAbsenAlfa($id,$date,$data){
         $absen = new Absen();
         $absen->user_id = $id;
-        $absen->status = "TIDAK HADIR";
+        $absen->status = $data['status'];
         $absen->jam_masuk = null;
         $absen->jam_pulang = null;
         $absen->koordinat = null;

@@ -90,12 +90,35 @@ class AbsensiService{
 
 
     public function cekAbsen(){
+
         $dateTime = Carbon::now()->toDateString();
         $users = $this->absensiRepository->dataUser();
         foreach($users as $user){
             $userAbsen = $this->absensiRepository->getUserNotAbsen($user->id,$dateTime);
             if(empty($userAbsen)){
-                $this->absensiRepository->insertAbsenAlfa($user->id,$dateTime);
+                 //testing
+            $hari_ini = date("Ymd");
+
+            //default time zone
+            date_default_timezone_set("Asia/Makassar");
+
+                $array = json_decode(file_get_contents("https://raw.githubusercontent.com/guangrei/Json-Indonesia-holidays/master/calendar.json"),true);
+
+                //check tanggal merah berdasarkan libur nasional
+                if(isset($array[$hari_ini]))
+            :		$dataStatus['status'] = 'LIBUR';
+
+                //check tanggal merah berdasarkan hari minggu
+                elseif(
+            date("D",strtotime($hari_ini))==="Sun")
+            :		$dataStatus['status'] = 'LIBUR';
+
+                //bukan tanggal merah
+                else
+                    :$dataStatus['status'] = 'TIDAK HADIR';
+                endif;
+
+                $this->absensiRepository->insertAbsenAlfa($user->id,$dateTime,$dataStatus);
             }
         }
     }

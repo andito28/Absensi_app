@@ -4,6 +4,7 @@ use App\Models\Absen;
 use App\Models\Izin;
 use App\Models\Sakit;
 use App\Models\User;
+use App\Models\LokasiKantor;
 use Auth;
 
 
@@ -104,5 +105,10 @@ class AbsensiRepository{
         $data['izin'] = $count_izin;
         $data['sakit'] = $count_sakit;
         return $data;
+    }
+
+    public function getLokasiKantor(){
+        $lokasiKantor = LokasiKantor::first();
+        return $lokasiKantor;
     }
 }

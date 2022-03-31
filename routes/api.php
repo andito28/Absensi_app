@@ -39,4 +39,5 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::get('get-absensi',[AbsensiController::class,'getCountAbsensi']);
     Route::get('get-profile',[AuthController::class,'getProfile']);
     Route::put('update-profile',[AuthController::class,'updateProfile']);
+    Route::put('update-password',[AuthController::class,'updatePassword']);
 });

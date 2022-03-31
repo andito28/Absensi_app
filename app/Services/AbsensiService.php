@@ -15,42 +15,85 @@ class AbsensiService{
 
     }
 
-    public function absenMasuk($request){
+        function haversineGreatCircleDistance(
+            $latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo){
+            $earthRadius = 6371000;
+            // convert from degrees to radians
+            $latFrom = deg2rad($latitudeFrom);
+            $lonFrom = deg2rad($longitudeFrom);
+            $latTo = deg2rad($latitudeTo);
+            $lonTo = deg2rad($longitudeTo);
 
-        $dateTime = Carbon::now();
-        $late = new Carbon('08:15:00');
-        $endAbsen = new Carbon('17:00:00');
-        $data_absen = $this->absensiRepository->dataAbsenMasuk($dateTime);
+            $latDelta = $latTo - $latFrom;
+            $lonDelta = $lonTo - $lonFrom;
 
-        $data['status'] = "";
-        $data['jam_masuk'] = $dateTime->toTimeString();
-        $data['jam_pulang'] = null;
-        $data['jenis_absen'] = $request['jenis_absen'];
-        $data['koordinat'] = $request['koordinat'];
-
-
-        if(empty($data_absen)){
-
-            if($dateTime->toTimeString() > $late->toTimeString()){
-                $data['status'] = 'TERLAMBAT';
-            }else{
-                $data['status'] = 'HADIR';
-            }
-
-        }else{
-            throw new HttpResponseException(response()->json([
-                'message'   => 'Anda Telah Melakukan Absen Hari Ini',
-            ],500));
+            $angle = 2 * asin(sqrt(pow(sin($latDelta / 2), 2) +
+            cos($latFrom) * cos($latTo) * pow(sin($lonDelta / 2), 2)));
+            return $angle * $earthRadius;
         }
 
-        if($dateTime <= $endAbsen){
 
-        return  $this->absensiRepository->absenMasuk($data,$dateTime);
+        function insertAbsen($request){
+            $dateTime = Carbon::now();
+            $late = new Carbon('08:15:00');
+            $endAbsen = new Carbon('17:00:00');
+            $data_absen = $this->absensiRepository->dataAbsenMasuk($dateTime);
 
+            $data['status'] = "";
+            $data['jam_masuk'] = $dateTime->toTimeString();
+            $data['jam_pulang'] = null;
+            $data['jenis_absen'] = $request['jenis_absen'];
+            $data['koordinat'] = $request['koordinat'];
+
+
+            if(empty($data_absen)){
+
+                if($dateTime->toTimeString() > $late->toTimeString()){
+                    $data['status'] = 'TERLAMBAT';
+                }else{
+                    $data['status'] = 'HADIR';
+                }
+
+            }else{
+                throw new HttpResponseException(response()->json([
+                    'message'   => 'Anda Telah Melakukan Absen Hari Ini',
+                ],500));
+            }
+
+            if($dateTime <= $endAbsen){
+
+            return  $this->absensiRepository->absenMasuk($data,$dateTime);
+
+            }else{
+                throw new HttpResponseException(response()->json([
+                    'message'   => 'Masa Absen Telah Berakhir',
+                ],500));
+            }
+        }
+
+
+    public function absenMasuk($request){
+
+        if($request->jenis_absen == 'wfo'){
+            $lokasiKantor = $this->absensiRepository->getLokasiKantor();
+
+            $koordinatUser = explode('_',$request->koordinat);
+            $koordinatKantor = explode('_',$lokasiKantor->titik_koordinat);
+
+            $radius = 30;
+            if( $this->haversineGreatCircleDistance($koordinatUser[0],$koordinatUser[1],$koordinatKantor[0],$koordinatKantor[1]) <= $radius){
+
+                return $this->insertAbsen($request);
+
+            }else{
+                throw new HttpResponseException(response()->json([
+                    'message'   => 'Maaf Anda berada Diluar Radius Kantor'
+                ],500));
+            }
         }else{
-            throw new HttpResponseException(response()->json([
-                'message'   => 'Masa Absen Telah Berakhir',
-            ],500));
+
+            return $this->insertAbsen($request);
+
         }
 
     }

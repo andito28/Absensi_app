@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\profileUpdateRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
 class AuthController extends Controller
@@ -61,22 +63,38 @@ class AuthController extends Controller
     public function updateProfile(profileUpdateRequest $request){
 
         $user = User::where('id',Auth::user()->id)->first();
-
-        if($request->password == null){
-            $pass = $user->password;
-        }else{
-            $pass = bcrypt($request->password);
-        }
-
         $user->update([
             'nama' => $request->nama,
             'jenis_kelamin' => $request->jenis_kelamin,
             'posisi' => $request->posisi,
             'hp' => $request->hp,
-            'password' => $pass
+            'password' =>  $user->password
         ]);
 
         return response()->json(['success' => $user], $this->successStatus);
+    }
+
+    public function updatePassword(Request $request){
+
+        $user = User::where('id',Auth::user()->id)->first();
+
+        if(Hash::check($request->password,$user->password)){
+
+            $user->update([
+                'nama' => $user->nama,
+                'jenis_kelamin' => $user->jenis_kelamin,
+                'posisi' => $user->posisi,
+                'hp' => $user->hp,
+                'password' =>   bcrypt($request->new_password)
+            ]);
+            return response()->json(['success' => $user], $this->successStatus);
+
+        }else{
+
+            throw new HttpResponseException(response()->json([
+                'message'   => 'Password Sebelumnya Tidak Sesuai',
+            ],500));
+        }
     }
 
 }

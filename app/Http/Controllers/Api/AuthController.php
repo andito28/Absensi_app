@@ -87,7 +87,10 @@ class AuthController extends Controller
                 'hp' => $user->hp,
                 'password' =>   bcrypt($request->new_password)
             ]);
-            return response()->json(['success' => $user], $this->successStatus);
+            return response()->json([
+                'data' => $user,
+                'message' => 'Berhasil Ganti password'
+            ], $this->successStatus);
 
         }else{
 

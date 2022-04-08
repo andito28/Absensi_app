@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Absen;
+use App\Models\User;
 use DataTables;
 
 class AbsensiController extends Controller
@@ -18,13 +19,24 @@ class AbsensiController extends Controller
         if ($request->ajax()) {
             if(!empty($request->from_date))
             {
-             $dataAbsen = Absen::with('User')
-               ->whereBetween('tgl', array($request->from_date, $request->to_date))
-               ->get();
+            $nama = $request->nama;
+            $dataAbsen = Absen::whereHas(
+                'User', function ($query)use ($nama) {
+                    $query->where('nama',$nama);
+                }
+            )
+            ->with('User')
+            ->orderBy('tgl','DESC')
+            ->whereBetween('tgl', array($request->from_date, $request->to_date))
+            ->get();
             }
             else
             {
-                $dataAbsen = Absen::with('User')->orderBy('tgl','DESC')->take(10)->get();
+                $count = User::count();
+                $dataAbsen = Absen::with('User')
+                ->orderBy('tgl','DESC')
+                ->take($count)
+                ->get();
             }
             return Datatables::of($dataAbsen)
                 ->addColumn('nama', function ($data) {

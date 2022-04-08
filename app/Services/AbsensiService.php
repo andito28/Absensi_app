@@ -104,6 +104,13 @@ class AbsensiService{
         $dateTime = Carbon::now();
         $data_absen = $this->absensiRepository->dataAbsenPulang($dateTime);
         $data['jam_pulang'] = $dateTime->toTimeString();
+        $waktu_pulang = new Carbon('17:00:00');
+
+        if($dateTime->toTimeString() <= $waktu_pulang){
+            throw new HttpResponseException(response()->json([
+                'message'   => 'Belum Bisa Melakukan Absen Pulang',
+            ],500));
+        }
 
         if(!empty($data_absen) && ($data_absen->status=='HADIR' || $data_absen->status =='TERLAMBAT')){
 

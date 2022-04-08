@@ -46,19 +46,24 @@
                 <div class="card-body pt-2">
                     <div class="row">
                         <div class="col col-md-12">
-                            <div class="row input-daterange pt-3 pb-3">
-                                <div class="col-md-3 pr-0">
-                                    <input type="text" name="from_date" id="from_date" class="form-date"
-                                        placeholder="From Date" readonly />
+                            <div class="row">
+                                <div class="col-md-3 pr-3 pt-3">
+                                    <input type="text" name="nama" id="nama" class="form-date" placeholder="Nama" />
                                 </div>
-                                <div class="col-md-3 pr-0">
-                                    <input type="text" name="to_date" id="to_date" class="form-date"
-                                        placeholder="To Date" readonly />
-                                </div>
-                                <div class="col-md-6">
-                                    <button type="button" name="filter" id="filter" class="btn btn-primary"
-                                        style="padding:8px;">Filter
-                                        Tanggal</button>
+                                <div class="row input-daterange pt-3 pb-3">
+                                    <div class="col-md-3 pr-0">
+                                        <input type="text" name="from_date" id="from_date" class="form-date"
+                                            placeholder="From Date" readonly />
+                                    </div>
+                                    <div class="col-md-3 pr-0">
+                                        <input type="text" name="to_date" id="to_date" class="form-date"
+                                            placeholder="To Date" readonly />
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="button" name="filter" id="filter" class="btn btn-primary"
+                                            style="padding:8px;">Filter
+                                            Tanggal</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -108,7 +113,7 @@
 
             load_data();
 
-            function load_data(from_date = '', to_date = '') {
+            function load_data(from_date = '', to_date = '', nama = '') {
                 $('#table-absen').DataTable({
                     dom: 'Bfrtip',
                     buttons: [
@@ -127,7 +132,8 @@
                         url: '{{ route('absen.get') }}',
                         data: {
                             from_date: from_date,
-                            to_date: to_date
+                            to_date: to_date,
+                            nama: nama,
                         }
                     },
                     columns: [{
@@ -158,14 +164,15 @@
             $('#filter').click(function() {
                 var from_date = $('#from_date').val();
                 var to_date = $('#to_date').val();
-                if (from_date != '' && to_date != '') {
+                var nama = $('#nama').val();
+                if (from_date != '' && to_date != '' && nama != '') {
                     $('#table-absen').DataTable().destroy();
-                    load_data(from_date, to_date);
+                    load_data(from_date, to_date, nama);
                 } else {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops....',
-                        text: 'Inputan Tanggal Belum Di Isi'
+                        text: 'Form Inputan Wajib Di Isi'
                     })
                 }
             });

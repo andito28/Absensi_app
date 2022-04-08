@@ -165,14 +165,14 @@
                 var from_date = $('#from_date').val();
                 var to_date = $('#to_date').val();
                 var nama = $('#nama').val();
-                if (from_date != '' && to_date != '' && nama != '') {
+                if (from_date != '' && to_date != '') {
                     $('#table-absen').DataTable().destroy();
                     load_data(from_date, to_date, nama);
                 } else {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops....',
-                        text: 'Form Inputan Wajib Di Isi'
+                        text: 'Form Date Wajib Di Isi'
                     })
                 }
             });

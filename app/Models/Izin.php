@@ -11,7 +11,7 @@ class Izin extends Model
 
     public $timestamps = false;
 
-    protected $fillable = ['user_id','jenis_izin','waktu_mulai','waktu_selesai','ket'];
+    protected $fillable = ['user_id','jenis_izin','waktu_mulai','waktu_selesai','ket','izin'];
 
     public function User(){
 

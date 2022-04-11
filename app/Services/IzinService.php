@@ -56,15 +56,15 @@ class IzinService{
             }
             if($request['waktu_mulai'] <= $request['waktu_selesai']){
 
-                $period = CarbonPeriod::create($request['waktu_mulai'], $request['waktu_selesai']);
+                // $period = CarbonPeriod::create($request['waktu_mulai'], $request['waktu_selesai']);
 
-                foreach ($period as $date) {
-                    $tgl = $date->format('Y-m-d');
-                    $data_absen = $this->izinRepository->dataAbsen($tgl);
-                    if(empty($data_absen)){
-                        $this->izinRepository->absen($tgl);
-                    }
-                }
+                // foreach ($period as $date) {
+                //     $tgl = $date->format('Y-m-d');
+                //     $data_absen = $this->izinRepository->dataAbsen($tgl);
+                //     if(empty($data_absen)){
+                //         $this->izinRepository->absen($tgl);
+                //     }
+                // }
 
                 return $this->izinRepository->izin($request);
 

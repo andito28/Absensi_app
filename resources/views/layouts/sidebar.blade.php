@@ -33,6 +33,33 @@
                     <span class="menu-title">Absensi</span>
                 </a>
             </li>
+            <li class="nav-item {{ Route::is('izin') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('izin') }}">
+                    <i class="mdi mdi-calendar-text menu-icon"></i>
+                    <span class="menu-title">
+                        Pengajuan Izin
+                        @php
+                            $count = App\Models\Izin::where('status', 'proses')->count();
+                        @endphp
+                        @if ($count > 0)
+                            <span class="badge badge-danger ml-0">{{ $count }}</span>
+                        @endif
+                    </span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="mdi mdi-calendar-text menu-icon"></i>
+                    <span class="menu-title">Pengajuan Sakit
+                        @php
+                            $count = App\Models\Izin::where('status', 'proses')->count();
+                        @endphp
+                        @if ($count > 0)
+                            <span class="badge badge-danger ml-0">{{ $count }}</span>
+                        @endif
+                    </span>
+                </a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('laporan.harian') }}">
                     <i class="mdi mdi-library-books menu-icon"></i>

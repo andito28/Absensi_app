@@ -29,23 +29,18 @@
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <p class="card-title">
-                    <div class="header-right d-flex flex-wrap mt-2 mt-sm-0 mb-3">
-                        <button type="button" class="btn btn-primary mt-2 mt-sm-0 btn-icon-text" data-toggle="modal"
-                            id="button-tambah">
-                            <i class="mdi mdi-plus-circle"></i>Karyawan </button>
-                    </div>
                     <div class="row">
                         <div class="col-12">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="table-user" style="width:100%">
+                                <table class="table table-bordered" id="table-izin" style="width:100%">
                                     <thead>
                                         <tr>
                                             <th>No</th>
                                             <th>Nama</th>
-                                            <th>Jenis Kelamin</th>
-                                            <th>HP</th>
-                                            <th>Posisi</th>
+                                            <th>Jenis Izin</th>
+                                            <th>Waktu Mulai</th>
+                                            <th>Waktu Selesai</th>
+                                            <th>Status</th>
                                             <th width="100px">Action</th>
                                         </tr>
                                     </thead>
@@ -59,7 +54,7 @@
             </div>
         </div>
     </div>
-    @include('karyawan.modal')
+    @include('izin.modal')
 @endsection
 
 
@@ -67,11 +62,11 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
     <script type="text/javascript">
         $(function() {
-            $('#table-user').DataTable({
+            $('#table-izin').DataTable({
                 processing: true,
                 serverSide: true,
                 responsive: true,
-                ajax: '{{ route('user.get') }}',
+                ajax: '{{ route('izin.get') }}',
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'
@@ -79,14 +74,17 @@
                         data: 'nama',
                         name: 'nama'
                     }, {
-                        data: 'jenis_kelamin',
-                        name: 'jenis_kelamin'
+                        data: 'jenis_izin',
+                        name: 'jenis_izin'
                     }, {
-                        data: 'hp',
-                        name: 'hp'
+                        data: 'waktu_m',
+                        name: 'waktu_m'
                     }, {
-                        data: 'posisi',
-                        name: 'posisi'
+                        data: 'waktu_s',
+                        name: 'waktu_s'
+                    }, {
+                        data: 'status_i',
+                        name: 'status_i'
                     }, {
                         data: 'action',
                         name: 'action'
@@ -97,15 +95,6 @@
         });
 
 
-        //ketika tombol add product di tekan
-        $('#button-tambah').click(function() {
-            $('#button-simpan').html('Simpan'); //valuenya menjadi create-post
-            $('#id').val(''); //valuenya menjadi kosong
-            $('#kecamatan_id').html('');
-            $('#form-tambah-edit').trigger("reset"); //mereset semua input dll didalamnya
-            $('#title').html("Tambah Karyawan"); //valuenya tambah role baru
-            $('#tambah-edit-modal').modal('show'); //modal tampil
-        });
 
 
         //ketika tombol simpan di tekan
@@ -114,26 +103,22 @@
 
             let formData = new FormData(this);
             var form = $('form');
-            form.find('span').remove();
-            form.find('.form-group').removeClass('is-invalid');
-            form.find('.form-control').removeClass('is-invalid');
 
             console.log(formData)
-
             $.ajax({
                 type: "POST",
-                url: "{{ route('user.store') }}",
+                url: "{{ route('izin.store') }}",
                 data: formData,
                 processData: false,
                 contentType: false,
                 success: function(data) {
                     $('#form-tambah-edit').trigger("reset");
                     $('#tambah-edit-modal').modal('hide');
-                    $('#table-user').DataTable().ajax.reload();
+                    $('#table-izin').DataTable().ajax.reload();
                     Swal.fire({
                         icon: 'success',
                         title: 'Sukses!',
-                        text: 'Data berhasil disimpan!'
+                        text: 'Data berhasil di update!'
                     });
                 },
                 error: function(xhr) {
@@ -153,61 +138,23 @@
         //akhir tombol simpan
 
         //ketika tombol edit di tekan
-        $('body').on('click', '.edit-user', function() {
+        $('body').on('click', '.edit-izin', function() {
             let data_id = $(this).data('id');
-            $('#kecamatan_id').html("")
-            $.get('edit-user/' + data_id, function(data) {
+            $.get('edit-izin/' + data_id, function(data) {
                 console.log(data)
                 $('#tambah-edit-modal').modal('show');
-                $('#title').html("Edit Karyawan");
+                $('#title').html("Update Status");
                 $('#button-simpan').html('Update');
                 $('#id').val(data.id);
-                $('#nama').val(data.nama);
-                $('#jenis_kelamin').val(data.jenis_kelamin).change();
-                $('#hp').val(data.hp);
-                $('#posisi').val(data.posisi);
+                $('#user_id').val(data.user_id);
+                $('#jenis_izin').val(data.jenis_izin);
+                $('#waktu_mulai').val(data.waktu_mulai);
+                $('#waktu_selesai').val(data.waktu_selesai);
+                $('#ket').val(data.ket);
+                $('#status').val(data.status).change();
             })
 
         })
-
-        //ketika tombol delete di tekan
-        $('body').on('click', '.delete-user', function() {
-            let dataId = $(this).attr('id');
-            Swal.fire({
-                icon: 'warning',
-                title: 'Hapus? ',
-                text: 'Anda yakin ingin menghapus data ini?',
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                confirmButtonText: 'Hapus',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.value) {
-                    $.ajax({
-                        method: "get",
-                        url: "delete-user/" + dataId,
-
-                        success: function(data) {
-                            $('#table-user').DataTable().ajax.reload();
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Sukses!',
-                                text: 'Data berhasil dihapus!'
-                            });
-                        },
-                        error: function(data) {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Oops....',
-                                text: 'Something went wrong'
-                            })
-                        }
-                    });
-                }
-            })
-        });
-
 
         $(function() {
 

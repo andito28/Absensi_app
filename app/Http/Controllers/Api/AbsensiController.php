@@ -32,9 +32,9 @@ class AbsensiController extends Controller
     }
 
 
-    public function absenPulang(){
+    public function absenPulang(Request $request){
         try{
-            $data = $this->absensiService->absenPulang();
+            $data = $this->absensiService->absenPulang($request);
         }catch(Error $e){
             $data = [
                 'status' => 500,

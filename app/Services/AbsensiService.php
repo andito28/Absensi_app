@@ -99,7 +99,7 @@ class AbsensiService{
     }
 
 
-    public function absenPulang(){
+    public function absenPulang($request){
 
         $dateTime = Carbon::now();
         $data_absen = $this->absensiRepository->dataAbsenPulang($dateTime);
@@ -114,7 +114,27 @@ class AbsensiService{
 
         if(!empty($data_absen) && ($data_absen->status=='HADIR' || $data_absen->status =='TERLAMBAT')){
 
+            if($request->jenis_absen == 'wfo'){
+                $lokasiKantor = $this->absensiRepository->getLokasiKantor();
+
+                $koordinatUser = explode('_',$request->koordinat);
+                $koordinatKantor = explode('_',$lokasiKantor->titik_koordinat);
+
+                $radius = 30;
+                if( $this->haversineGreatCircleDistance($koordinatUser[0],$koordinatUser[1],$koordinatKantor[0],$koordinatKantor[1]) <= $radius){
+
+                    return  $this->absensiRepository->absenPulang($data,$dateTime);
+
+                }else{
+                    throw new HttpResponseException(response()->json([
+                        'message'   => 'Maaf Anda berada Diluar Radius Kantor'
+                    ],500));
+                }
+            }else{
+
                 return  $this->absensiRepository->absenPulang($data,$dateTime);
+
+            }
 
         }else if(!empty($data_absen) && ($data_absen->status=='IZIN' || $data_absen->status =='TIDAK HADIR' || $data_absen->status =='SAKIT')){
 

@@ -46,4 +46,9 @@ class SakitService{
 
 
     }
+
+    public function daftarSakit(){
+        return $this->sakitRepository->getSakit();
+    }
+
 }

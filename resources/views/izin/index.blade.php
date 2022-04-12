@@ -40,6 +40,7 @@
                                             <th>Jenis Izin</th>
                                             <th>Waktu Mulai</th>
                                             <th>Waktu Selesai</th>
+                                            <th>Keterangan</th>
                                             <th>Status</th>
                                             <th width="100px">Action</th>
                                         </tr>
@@ -82,6 +83,9 @@
                     }, {
                         data: 'waktu_s',
                         name: 'waktu_s'
+                    }, {
+                        data: 'ket',
+                        name: 'ket'
                     }, {
                         data: 'status_i',
                         name: 'status_i'

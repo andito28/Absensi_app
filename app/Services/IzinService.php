@@ -81,4 +81,8 @@ class IzinService{
 
     }
 
+    public function daftarIzin(){
+        return $this->izinRepository->getIzin();
+    }
+
 }

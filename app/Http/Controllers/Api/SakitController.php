@@ -32,4 +32,14 @@ class SakitController extends Controller
             'data' => $data
         ]);
     }
+
+    public function daftarSakit(){
+
+        $data = $this->sakitService->daftarSakit();
+        return response()->json([
+            'message' => 'Daftar Pengajuan Sakit',
+            'data' => $data
+        ]);
+
+    }
 }

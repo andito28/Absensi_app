@@ -32,4 +32,14 @@ class IzinController extends Controller
             'data' => $data
         ]);
     }
+
+    public function daftarIzin(){
+
+        $data = $this->izinService->daftarIzin();
+        return response()->json([
+            'message' => 'Daftar Pengajuan Izin',
+            'data' => $data
+        ]);
+
+    }
 }

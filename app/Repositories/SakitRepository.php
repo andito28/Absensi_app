@@ -23,6 +23,13 @@ class SakitRepository{
         return $data_sakit;
     }
 
+    public function getSakit(){
+        $daftar_sakit = Sakit::select('waktu','ket','status')
+        ->where('user_id', Auth::user()->id)
+        ->paginate(5);
+        return $daftar_sakit;
+    }
+
     // public function dataAbsen($date){
     //     $data_absen = Absen::where('user_id',Auth::user()->id)
     //     ->where('tgl',$date)

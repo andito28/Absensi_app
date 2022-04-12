@@ -31,6 +31,13 @@ class IzinRepository{
         return $data_absen;
     }
 
+    public function getIzin(){
+        $daftar_izin = Izin::select('jenis_izin','waktu_mulai','waktu_selesai','ket','status')
+        ->where('user_id', Auth::user()->id)
+        ->paginate(5);
+        return $daftar_izin;
+    }
+
     // public function absen($tgl){
     //     $absen = new Absen();
     //     $absen->user_id = Auth::user()->id;

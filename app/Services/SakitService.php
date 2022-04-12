@@ -19,19 +19,18 @@ class SakitService{
 
         if($data['waktu'] >= $dateTime->toDateString()){
 
-            $data_absen = $this->sakitRepository->dataAbsen($data['waktu']);
+            $data_sakit = $this->sakitRepository->dataSakit($data['waktu']);
 
-            if(empty($data_absen)){
+            if(empty($data_sakit)){
 
-                $this->sakitRepository->absen($data);
+                // $this->sakitRepository->absen($data);
                 return $this->sakitRepository->sakit($data);
 
             }else{
 
                 throw new HttpResponseException(response()->json([
 
-                    'message' => 'Anda Tidak Dapat Melakukan Pengajuan Sakit'
-
+                    'message' => 'Anda Sudah Melakukan Pengajuan Sakit'
                 ],500));
 
             }

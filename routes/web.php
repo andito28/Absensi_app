@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AbsensiController;
 use App\Http\Controllers\Admin\IzinController;
+use App\Http\Controllers\Admin\SakitController;
 use App\Http\Controllers\Admin\LaporanHarianController;
 use App\Http\Controllers\Admin\LaporanKunjunganController;
 use App\Http\Controllers\Auth\LoginController;
@@ -58,8 +59,13 @@ Route::get('/get-absen', [AbsensiController::class, 'dataAbsen'])->name('absen.g
 Route::get('/daftar-izin', [IzinController::class, 'index'])->name('izin');
 Route::get('/get-izin', [IzinController::class, 'dataIzin'])->name('izin.get');
 Route::post('/store-izin', [IzinController::class, 'store'])->name('izin.store');
-Route::get('/delete-izin/{id}', [IzinController::class, 'destroy'])->name('izin.delete');
 Route::get('/edit-izin/{id}', [IzinController::class, 'edit'])->name('izin.edit');
+
+//sakit
+Route::get('/daftar-sakit', [SakitController::class, 'index'])->name('sakit');
+Route::get('/get-sakit', [SakitController::class, 'dataSakit'])->name('sakit.get');
+Route::post('/store-sakit', [SakitController::class, 'store'])->name('sakit.store');
+Route::get('/edit-sakit/{id}', [SakitController::class, 'edit'])->name('sakit.edit');
 
 //laporan
 Route::get('/laporan-harian', [LaporanHarianController::class, 'index'])->name('laporan.harian');

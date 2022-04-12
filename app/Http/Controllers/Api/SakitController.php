@@ -28,7 +28,7 @@ class SakitController extends Controller
         }
 
         return response()->json([
-            'message' => 'Success Created Sakit',
+            'message' => 'Berhasil Melakukan Pengajuan Sakit',
             'data' => $data
         ]);
     }

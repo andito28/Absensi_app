@@ -47,12 +47,12 @@
                     </span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
+            <li class="nav-item {{ Route::is('sakit') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('sakit') }}">
                     <i class="mdi mdi-calendar-text menu-icon"></i>
                     <span class="menu-title">Pengajuan Sakit
                         @php
-                            $count = App\Models\Izin::where('status', 'proses')->count();
+                            $count = App\Models\Sakit::where('status', 'proses')->count();
                         @endphp
                         @if ($count > 0)
                             <span class="badge badge-danger ml-0">{{ $count }}</span>

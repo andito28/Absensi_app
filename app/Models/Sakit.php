@@ -11,7 +11,7 @@ class Sakit extends Model
 
     public $timestamps = false;
 
-    protected $fillable = ['user_id','waktu','ket'];
+    protected $fillable = ['user_id','waktu','ket','status'];
 
     public function User(){
 

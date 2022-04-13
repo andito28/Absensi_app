@@ -78,6 +78,7 @@
                                             <th>Tanggal</th>
                                             <th>Jam datang</th>
                                             <th>Jam Pulang</th>
+                                            <th>ket</th>
                                             <th>Status</th>
                                         </tr>
                                     </thead>
@@ -154,6 +155,9 @@
                     }, {
                         data: 'jam_p',
                         name: 'jam_p'
+                    }, {
+                        data: 'jenis_absen',
+                        name: 'jenis_absen'
                     }, {
                         data: 'status',
                         name: 'status'

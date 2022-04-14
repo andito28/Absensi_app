@@ -54,11 +54,12 @@ class AbsensiController extends Controller
         ]);
     }
 
-    public function cekAbsen(){
-        $this->absensiService->cekAbsen();
-        return response()->json([
-            'message' => 'Berhasil Melakukan Absen'
-        ]);
+    public function cekAbsenMasuk(){
+        return $this->absensiService->cekAbsenMasuk();
+    }
+
+    public function cekAbsenPulang(){
+        return  $this->absensiService->cekAbsenPulang();
     }
 
 }

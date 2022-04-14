@@ -159,7 +159,7 @@ class AbsensiService{
     }
 
 
-    public function cekAbsen(){
+    public function cekAbsenMasuk(){
 
         $dateTime = Carbon::now()->toDateString();
         $users = $this->absensiRepository->dataUser();
@@ -191,6 +191,20 @@ class AbsensiService{
                 $this->absensiRepository->insertAbsenAlfa($user->id,$dateTime,$dataStatus);
             }
         }
+    }
+
+    public function cekAbsenPulang(){
+
+        $dateTime = Carbon::now()->toDateString();
+        $users = $this->absensiRepository->dataUser();
+
+        foreach($users as $user){
+            $userAbsen = $this->absensiRepository->getUserAbsen($user->id,$dateTime);
+            if(!empty($userAbsen) && $userAbsen->jam_masuk != null && $userAbsen->jam_pulang == null){
+                $this->absensiRepository->updateAbsenPulang($user->id,$userAbsen->tgl);
+            }
+        }
+
     }
 
 }

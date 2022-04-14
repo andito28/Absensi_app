@@ -26,7 +26,8 @@ Route::post('login',[AuthController::class,'login']);
 Route::get('logout',[AuthController::class,'logout'])->middleware('auth:api');
 
 //cek absen
-Route::post('cek-absen',[AbsensiController::class,'cekAbsen']);
+Route::post('cek-absen-masuk',[AbsensiController::class,'cekAbsenMasuk']);
+Route::post('cek-absen-pulang',[AbsensiController::class,'cekAbsenPulang']);
 
 //Absensi
 Route::group(['middleware' => 'auth:api'], function(){

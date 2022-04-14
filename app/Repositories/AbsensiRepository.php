@@ -111,4 +111,20 @@ class AbsensiRepository{
         $lokasiKantor = LokasiKantor::first();
         return $lokasiKantor;
     }
+
+    public function getUserAbsen($userId,$date){
+        $absenPulang = Absen::where('user_id',$userId)
+        ->whereDate('tgl',$date)
+        ->first();
+        return $absenPulang;
+    }
+
+    public function updateAbsenPulang($userId,$date){
+        $absen =  Absen::where('user_id',$userId)
+        ->whereDate('tgl',$date)
+        ->first();
+        $absen->jam_pulang = '17:00:00';
+        $absen->save();
+        return $absen->fresh();
+    }
 }

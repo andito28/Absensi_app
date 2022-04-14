@@ -118,8 +118,6 @@
             form.find('.form-group').removeClass('is-invalid');
             form.find('.form-control').removeClass('is-invalid');
 
-            console.log(formData)
-
             $.ajax({
                 type: "POST",
                 url: "{{ route('user.store') }}",

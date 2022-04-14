@@ -80,7 +80,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="">
+                <a class="nav-link" href="{{ route('jamKerja') }}">
                     <i class="mdi mdi-clock
                     menu-icon"></i>
                     <span class="menu-title">Jam Kerja</span>

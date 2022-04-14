@@ -6,6 +6,7 @@ use App\Models\Sakit;
 use App\Models\User;
 use App\Models\LokasiKantor;
 use App\Models\Quotes;
+use App\Models\JamKerja;
 use Auth;
 
 
@@ -132,5 +133,10 @@ class AbsensiRepository{
     public function getQuotes(){
         $quotes = Quotes::select('text')->first();
         return $quotes;
+    }
+
+    public function getJamKerja(){
+        $jamKerja = JamKerja::select('jam_masuk','jam_pulang')->first();
+        return $jamKerja;
     }
 }

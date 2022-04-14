@@ -35,8 +35,9 @@ class AbsensiService{
 
         function insertAbsen($request){
             $dateTime = Carbon::now();
-            $late = new Carbon('08:15:00');
-            $endAbsen = new Carbon('17:00:00');
+            // $late = new Carbon('08:15:00');
+            // $endAbsen = new Carbon('17:00:00');
+            $jam_kerja = $this->absensiRepository->getJamKerja();
             $data_absen = $this->absensiRepository->dataAbsenMasuk($dateTime);
 
             $data['status'] = "";
@@ -48,7 +49,7 @@ class AbsensiService{
 
             if(empty($data_absen)){
 
-                if($dateTime->toTimeString() > $late->toTimeString()){
+                if($dateTime->toTimeString() > $jam_kerja->jam_masuk){
                     $data['status'] = 'TERLAMBAT';
                 }else{
                     $data['status'] = 'HADIR';
@@ -60,7 +61,7 @@ class AbsensiService{
                 ],500));
             }
 
-            if($dateTime <= $endAbsen){
+            if($dateTime->toTimeString() <= $jam_kerja->jam_pulang){
 
             return  $this->absensiRepository->absenMasuk($data,$dateTime);
 
@@ -104,9 +105,10 @@ class AbsensiService{
         $dateTime = Carbon::now();
         $data_absen = $this->absensiRepository->dataAbsenPulang($dateTime);
         $data['jam_pulang'] = $dateTime->toTimeString();
-        $waktu_pulang = new Carbon('17:00:00');
+        $jam_kerja = $this->absensiRepository->getJamKerja();
+        // $waktu_pulang = new Carbon('17:00:00');
 
-        if($dateTime->toTimeString() <= $waktu_pulang){
+        if($dateTime->toTimeString() <= $jam_kerja->jam_pulang){
             throw new HttpResponseException(response()->json([
                 'message'   => 'Belum Bisa Melakukan Absen Pulang',
             ],500));

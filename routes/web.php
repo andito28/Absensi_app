@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\IzinController;
 use App\Http\Controllers\Admin\SakitController;
 use App\Http\Controllers\Admin\LaporanHarianController;
 use App\Http\Controllers\Admin\LaporanKunjunganController;
+use App\Http\Controllers\Admin\QuotesController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HomeController;
 
@@ -72,5 +73,10 @@ Route::get('/laporan-harian', [LaporanHarianController::class, 'index'])->name('
 Route::get('/data-laporan-harian', [LaporanHarianController::class, 'dataLaporanHarian'])->name('laporan.harian.get');
 Route::get('/laporan-kunjungan', [LaporanKunjunganController::class, 'index'])->name('laporan.kunjungan');
 Route::get('/data-laporan-kunjungan', [LaporanKunjunganController::class, 'dataLaporanKunjungan'])->name('laporan.kunjungan.get');
+
+//quotes
+Route::get('/quotes', [QuotesController::class, 'index'])->name('quotes');
+Route::post('/quotes-update', [QuotesController::class, 'update'])->name('quotes.update');
+
 
 });

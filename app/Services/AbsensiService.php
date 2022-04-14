@@ -207,4 +207,10 @@ class AbsensiService{
 
     }
 
+    public function getQuotes(){
+
+       return $this->absensiRepository->getQuotes();
+
+    }
+
 }

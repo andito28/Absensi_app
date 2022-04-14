@@ -5,6 +5,7 @@ use App\Models\Izin;
 use App\Models\Sakit;
 use App\Models\User;
 use App\Models\LokasiKantor;
+use App\Models\Quotes;
 use Auth;
 
 
@@ -126,5 +127,10 @@ class AbsensiRepository{
         $absen->jam_pulang = '17:00:00';
         $absen->save();
         return $absen->fresh();
+    }
+
+    public function getQuotes(){
+        $quotes = Quotes::select('text')->first();
+        return $quotes;
     }
 }

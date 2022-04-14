@@ -51,7 +51,7 @@ class AbsensiController extends Controller
         $data = $this->absensiService->getAbsen();
         return response()->json([
             'data' => $data
-        ]);
+        ],200);
     }
 
     public function cekAbsenMasuk(){
@@ -60,6 +60,13 @@ class AbsensiController extends Controller
 
     public function cekAbsenPulang(){
         return  $this->absensiService->cekAbsenPulang();
+    }
+
+    public function getQuotes(){
+        $data = $this->absensiService->getQuotes();
+        return response()->json([
+            'data' => $data
+        ],200);
     }
 
 }

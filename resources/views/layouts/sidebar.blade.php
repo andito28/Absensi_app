@@ -72,6 +72,27 @@
                     <span class="menu-title">Laporan Kunjungan</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="">
+                    <i class="mdi mdi-google-maps
+                    menu-icon"></i>
+                    <span class="menu-title">Lokasi Kantor</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="">
+                    <i class="mdi mdi-clock
+                    menu-icon"></i>
+                    <span class="menu-title">Jam Kerja</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('quotes') }}">
+                    <i class="mdi mdi-format-quote-close
+                    menu-icon"></i>
+                    <span class="menu-title">Quotes</span>
+                </a>
+            </li>
         @endif
     </ul>
 </nav>

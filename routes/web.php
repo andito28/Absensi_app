@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\LaporanHarianController;
 use App\Http\Controllers\Admin\LaporanKunjunganController;
 use App\Http\Controllers\Admin\QuotesController;
 use App\Http\Controllers\Admin\JamKerjaController;
+use App\Http\Controllers\Admin\LokasiKantorController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HomeController;
 
@@ -83,5 +84,8 @@ Route::post('/quotes-update', [QuotesController::class, 'update'])->name('quotes
 Route::get('/jam-kerja', [JamKerjaController::class, 'index'])->name('jamKerja');
 Route::post('/jam-kerja-update', [JamKerjaController::class, 'update'])->name('jamKerja.update');
 
+//Lokasi Kantor
+Route::get('/lokasi-kantor', [LokasiKantorController::class, 'index'])->name('lokasiKantor');
+Route::post('/lokasi-kantor-update', [LokasiKantorController::class, 'update'])->name('lokasiKantor.update');
 
 });

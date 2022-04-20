@@ -11,4 +11,5 @@ class LokasiKantor extends Model
 
     protected $table = 'lokasi_kantor';
     protected $fillable = ['titik_koordinat','ket'];
+    public $timestamps = false;
 }

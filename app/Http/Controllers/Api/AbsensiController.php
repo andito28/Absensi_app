@@ -14,7 +14,6 @@ class AbsensiController extends Controller
         $this->absensiService = $absensiService;
     }
 
-
     public function absenMasuk(Request $request){
         try{
             $data = $this->absensiService->absenMasuk($request);
@@ -30,7 +29,6 @@ class AbsensiController extends Controller
                 'data' => $data
             ]);
     }
-
 
     public function absenPulang(Request $request){
         try{

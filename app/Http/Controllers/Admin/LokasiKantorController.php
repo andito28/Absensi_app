@@ -14,13 +14,11 @@ class LokasiKantorController extends Controller
     }
 
     public function update(Request $request){
-
         $id = $request->id;
         $lokasi = LokasiKantor::findOrFail($id);
         $lokasi->titik_koordinat = $request->lokasi_kantor;
         $lokasi->ket = $request->ket;
         $lokasi->save();
         return response()->json($lokasi);
-
     }
 }

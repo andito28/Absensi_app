@@ -14,13 +14,11 @@ class JamKerjaController extends Controller
     }
 
     public function update(Request $request){
-
         $id = $request->id;
         $jamKerja = JamKerja::findOrFail($id);
         $jamKerja->jam_masuk = $request->jam_masuk;
         $jamKerja->jam_pulang = $request->jam_pulang;
         $jamKerja->save();
         return response()->json($jamKerja);
-
     }
 }
